@@ -6,5 +6,6 @@ class Form < ApplicationRecord
   has_many :form_fields, dependent: :destroy
   has_many :form_fields, dependent: :destroy
   has_many :form_submissions, dependent: :destroy
+  validates :form_fields, presence: true
 
 end
