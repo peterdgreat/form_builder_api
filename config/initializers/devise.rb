@@ -314,6 +314,7 @@ Devise.setup do |config|
     jwt.revocation_requests = [
       ['DELETE', %r{^/logout$}]
     ]
+    # jwt.revocation_strategy = JwtDenylist
     jwt.expiration_time = 1.day.to_i
   end
   config.navigational_formats = []
