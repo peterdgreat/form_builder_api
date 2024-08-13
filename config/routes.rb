@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+  sessions: 'users/sessions'
+}, defaults: { format: :json }
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -10,8 +13,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'forms/:slug', to: 'public_forms#show', as: 'public_form'
       post 'forms/:slug/submit', to: 'public_forms#submit', as: 'submit_public_form'
+      resources :form_fields, only: [:create, :update, :destroy, :index]
       resources :forms do
-        resources :form_fields, only: [:create, :update, :destroy]
+        resources :form_fields, only: [:create, :update, :destroy, :index]
         resources :form_submissions, only: [:create, :index]
       end
     end

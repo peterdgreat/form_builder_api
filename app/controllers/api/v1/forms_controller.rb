@@ -2,8 +2,8 @@ class Api::V1::FormsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @forms = current_user.forms
-    render json: @forms
+    forms = current_user.forms.includes(:form_fields)
+    render json: forms.as_json(include: :form_fields), status: :ok
   end
 
   def show
@@ -40,5 +40,5 @@ class Api::V1::FormsController < ApplicationController
   def form_params
     params.require(:form).permit(:title)
   end
-  
+
 end
