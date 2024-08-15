@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
 
   has_many :forms, dependent: :destroy
-
+  has_many :form_fields, dependent: :destroy
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
 

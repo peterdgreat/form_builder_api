@@ -1,10 +1,22 @@
-module Api
-  module V1
-    class PublicFormsController < ApplicationController
+class Api::V1::PublicFormsController < ApplicationController
+
+  include ActionView::Layouts
+       include ActionController::MimeResponds
+
+
+      # after_action :allow_iframe
+
+
       def show
         @form = Form.friendly.find(params[:slug])
-        render json: @form, include: :form_fields
+        respond_to do |format|
+          format.html { render :show } # This renders the HTML template
+          format.json { render json: @form, include: :form_fields }
+        end
       end
+
+
+
 
       def submit
         @form = Form.friendly.find(params[:slug])
@@ -26,6 +38,9 @@ module Api
       def form_submission_params
         params.require(:form_submission).permit(data: {})
       end
-    end
-  end
+
+      def allow_iframe
+        response.headers.delete('X-Frame-Options')
+      end
+
 end
