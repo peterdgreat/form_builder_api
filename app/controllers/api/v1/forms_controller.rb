@@ -41,10 +41,4 @@ class Api::V1::FormsController < ApplicationController
     params.require(:form).permit(:title)
   end
 
-  def allow_iframe_requests
-    response.headers.delete('X-Frame-Options')
-    response.headers['Content-Security-Policy'] = "frame-ancestors 'self' http://localhost:3000"
-  end
-
-
 end
