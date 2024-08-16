@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @form.title %></title>
+</head>
+<body>
+  <h1><%= @form.title %></h1>
+
+  <% @form.form_fields.each do |field| %>
+    <div>
+      <label><%= field.label %></label>
+      <% if field.field_type == 'text' || field.field_type == 'email' %>
+        <input type="<%= field.field_type %>" placeholder="<%= field.label %>" />
+      <% elsif field.field_type == 'checkbox' || field.field_type == 'radio' %>
+        <input type="<%= field.field_type %>" /> <%= field.label %>
+      <% elsif field.field_type == 'dropdown' %>
+        <select>
+          <% field.options.each do |option| %>
+            <option value="<%= option %>"><%= option %></option>
+          <% end %>
+        </select>
+      <% elsif field.field_type == 'date' %>
+        <input type="date" />
+      <% elsif field.field_type == 'textarea' %>
+        <textarea placeholder="<%= field.label %>"></textarea>
+      <% elsif field.field_type == 'file' %>
+        <input type="file" />
+      <% end %>
+    </div>
+  <% end %>
+</body>
+</html>

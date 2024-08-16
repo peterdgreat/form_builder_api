@@ -62,9 +62,17 @@ class Api::V1::FormFieldsController < ApplicationController
   end
 
   def destroy
-    @form_field.destroy
-    head :no_content
+    if @form_field.destroy
+      head :no_content
+    else
+      render json: { status: 'error', message: 'Unable to delete form field' }, status: :unprocessable_entity
+    end
+  rescue ActiveRecord::RecordNotFound
+    render json: { status: 'error', message: 'Form field not found' }, status: :not_found
+  rescue StandardError => e
+    render json: { status: 'error', message: 'Internal server error' }, status: :internal_server_error
   end
+
 
   private
 
