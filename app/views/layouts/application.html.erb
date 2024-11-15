@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Viewer</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= yield :head %> <!-- To include any specific head content -->
+</head>
+<body>
+  <%= yield %> <!-- This will render the content from your view templates -->
+</body>
+</html>
